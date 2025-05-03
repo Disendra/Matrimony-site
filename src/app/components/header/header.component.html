@@ -1,0 +1,64 @@
+ <!-- Header -->
+ <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e62e2e;">
+  <div class="container-fluid">
+    <!-- Sidebar toggle for mobile -->
+    <button class="navbar-toggler border-0 d-lg-none" type="button" (click)="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand fw-bold cursor-pointer" (click)="onHomePage()">Matrimony</a>
+
+    <!-- Full menu for desktop -->
+    <div class="d-none d-lg-flex align-items-center ms-auto gap-3 text-white">
+      <a class="nav-link text-white" (click)="navigateTo('search')">Search Matches</a>
+      <a class="nav-link text-white" (click)="navigateTo('interest-send')">Sent Proposals</a>
+      <a class="nav-link text-white" (click)="navigateTo('membership-plan')">Subscription Plans</a>
+      <a class="nav-link text-white" (click)="navigateTo('profile')">Profile</a>
+      <a class="nav-link text-white" (click)="logout()">Logout</a>
+      <a class="nav-link text-white" (click)="navigateTo('login')">Login</a>
+    </div>
+
+    <!-- Dots button for mobile only -->
+    <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <i class="bi bi-three-dots-vertical text-white"></i>
+    </button>
+  </div>
+</nav>
+
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar-overlay" [class.show]="sidebarOpen" (click)="toggleSidebar()"></div>
+  <div class="sidebar" [class.show]="sidebarOpen">
+    <!-- Header Image -->
+    <div class="sidebar-header">
+      <img src="./assets/menu-img.jpg" alt="Wedding Ceremony" class="w-100">
+    </div>
+    
+    <!-- Menu Items -->
+    <div class="sidebar-menu">
+      <div class="menu-item" (click)="navigateTo('search')">
+        <i class="bi bi-search"></i>
+        <span>Search Matches</span>
+      </div>
+      <div class="menu-item" (click)="navigateTo('interest-send')">
+        <i class="bi bi-heart"></i>
+        <span>Sent Proposals</span>
+      </div>
+      <div class="menu-item" (click)="navigateTo('membership-plan')">
+        <i class="bi bi-grid"></i>
+        <span>Subscription Plans</span>
+      </div>
+      <div class="menu-item" (click)="navigateTo('profile')">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </div>
+      <div class="menu-item" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Logout</span>
+      </div>
+      <div class="menu-item" (click)="navigateTo('login')">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </div>
+    </div>
+  </div>

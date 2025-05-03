@@ -1,0 +1,75 @@
+.card {
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e0e0e0;
+}
+
+.btn-danger {
+  background-color: #e62e2e;
+  border-color: #e62e2e;
+}
+
+.btn-outline-danger {
+  color: #e62e2e;
+  border-color: #e62e2e;
+}
+
+.btn-outline-danger:hover {
+  background-color: #e62e2e;
+  color: white;
+}
+
+.text-danger {
+  color: #e62e2e !important;
+}
+
+.profile-card {
+  max-width: 400px;
+  /* margin: 2rem auto; */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
+}
+
+.profile-header {
+  text-align: center;
+  color: #d63384;
+  font-weight: bold;
+  /* margin-bottom: 1rem; */
+  font-size: 1.3rem;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 1rem;
+}
+
+.section-title {
+  font-weight: bold;
+  color: #343a40;
+  margin-top: 1rem;
+  border-bottom: 1px solid #0000003b;
+  padding: 5px;
+}
+
+.info-label {
+  font-weight: 500;
+}
+
+.modal-header {
+  justify-content: center;
+}
+
+.modal-content {
+  border-radius: 15px;
+}
+
+.btn-danger {
+  background-color: #e60000;
+  border: none;
+}
