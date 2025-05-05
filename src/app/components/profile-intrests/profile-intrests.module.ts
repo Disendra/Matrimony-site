@@ -1,22 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
+import { ProfileIntrestsRoutingModule } from './profile-intrests-routing.module';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { ProfileIntrestsComponent } from './profile-intrests.component';
 import { HeaderModule } from '../header/header.module';
-import { ForgotPasswordComponent } from './forgot-password.component';
+
 
 @NgModule({
   declarations: [
-    ForgotPasswordComponent
+    ProfileIntrestsComponent
   ],
   imports: [
     CommonModule,
-    ForgotPasswordRoutingModule,
-    CommonModule,
+    ProfileIntrestsRoutingModule,
     SharedModule,
     HeaderModule
   ]
 })
-export class ForgotPasswordModule { }
+export class ProfileIntrestsModule { }

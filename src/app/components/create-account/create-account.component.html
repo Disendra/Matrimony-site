@@ -3,161 +3,275 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
   <div class="form-container p-4 rounded shadow">
     <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
-      <!-- STEP 1 -->
+      <!-- STEP 1: Personal Information -->
       <div *ngIf="step === 1">
         <div class="mb-3">
-          <input type="text" class="form-control custom-input" placeholder="First Name" [(ngModel)]="formData.firstName"
-            name="firstName" required />
+          <input type="text" class="form-control custom-input" placeholder="First Name"
+            [(ngModel)]="formData.firstName" name="firstName" #firstName="ngModel" required />
+          <div *ngIf="firstName.invalid && firstName.touched" class="text-danger small">First name is required.</div>
         </div>
         <div class="mb-3">
-          <input type="text" class="form-control custom-input" placeholder="Last Name" [(ngModel)]="formData.lastName"
-            name="lastName" required />
+          <input type="text" class="form-control custom-input" placeholder="Last Name"
+            [(ngModel)]="formData.lastName" name="lastName" #lastName="ngModel" required />
+          <div *ngIf="lastName.invalid && lastName.touched" class="text-danger small">Last name is required.</div>
         </div>
         <div class="mb-3">
           <input type="tel" class="form-control custom-input" placeholder="Mobile Number"
-            [(ngModel)]="formData.mobileNumber" name="mobileNumber" required />
+            [(ngModel)]="formData.mobileNumber" name="mobileNumber" #mobileNumber="ngModel" required />
+          <div *ngIf="mobileNumber.invalid && mobileNumber.touched" class="text-danger small">Mobile number is required.</div>
         </div>
         <div class="mb-3">
-          <input type="email" class="form-control custom-input" placeholder="Email" [(ngModel)]="formData.email"
-            name="email" required />
+          <input type="email" class="form-control custom-input" placeholder="Email"
+            [(ngModel)]="formData.email" name="email" #email="ngModel" required />
+          <div *ngIf="email.invalid && email.touched" class="text-danger small">Email is required.</div>
         </div>
         <div class="mb-3">
           <input type="password" class="form-control custom-input" placeholder="Password"
-            [(ngModel)]="formData.password" name="password" required />
+            [(ngModel)]="formData.password" name="password" #password="ngModel" required />
+          <div *ngIf="password.invalid && password.touched" class="text-danger small">Password is required.</div>
         </div>
         <div class="mb-3">
           <input type="password" class="form-control custom-input" placeholder="Confirm Password"
-            [(ngModel)]="formData.confirmPassword" name="confirmPassword" required />
+            [(ngModel)]="formData.confirmPassword" name="confirmPassword" #confirmPassword="ngModel" required />
+          <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="text-danger small">Confirm password is required.</div>
+          <div *ngIf="passwordMismatch" class="text-danger small">
+            Password and Confirm Password do not match.
+          </div>          
         </div>
         <div class="mb-3">
-          <select class="form-select custom-input" [(ngModel)]="formData.profileFor" name="profileFor" required>
+          <select class="form-select custom-input" [(ngModel)]="formData.profileFor" name="profileFor"
+            #profileFor="ngModel" required>
             <option value="" disabled selected>Profile For</option>
             <option value="self">Self</option>
             <option value="friend">Friend</option>
             <option value="family">Family</option>
           </select>
+          <div *ngIf="profileFor.invalid && profileFor.touched" class="text-danger small">Profile For is required.</div>
         </div>
-        <button type="button" class="btn btn-primary w-100" (click)="nextStep()">Next</button>
+        <button type="button" class="btn btn-primary w-100" (click)="nextStep(signupForm)">Next</button>
       </div>
-
-      <!-- STEP 2 -->
+    
+      <!-- STEP 2: Basic Details -->
       <div *ngIf="step === 2">
         <div class="mb-3">
-          <select class="form-select custom-input" [(ngModel)]="formData.gender" name="gender" required>
+          <select class="form-select custom-input" [(ngModel)]="formData.gender" name="gender" #gender="ngModel" required>
             <option value="" disabled selected>Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
+          <div *ngIf="gender.invalid && gender.touched" class="text-danger small">Gender is required.</div>
         </div>
         <div class="mb-3">
-          <input type="date" class="form-control custom-input" [(ngModel)]="formData.dob" name="dob" required />
-        </div>
-        <div class="mb-3 d-flex">
-          <input type="text" class="form-control custom-input me-2" style="width: 30%;" placeholder="Code" />
-          <input type="tel" class="form-control custom-input" placeholder="Landline Number"
-            [(ngModel)]="formData.landlineNumber" name="landlineNumber" />
-        </div>
-        <div class="mb-3 d-flex">
-          <input type="text" class="form-control custom-input me-2" style="width: 30%;" placeholder="Code" />
-          <input type="tel" class="form-control custom-input" placeholder="Mobile Number"
-            [(ngModel)]="formData.mobileNumber2" name="mobileNumber2" required />
+          <input type="date" class="form-control custom-input" [(ngModel)]="formData.dob" name="dob" #dob="ngModel" required />
+          <div *ngIf="dob.invalid && dob.touched" class="text-danger small">Date of birth is required.</div>
         </div>
         <div class="mb-3">
-          <select class="form-select custom-input" [(ngModel)]="formData.maritalStatus" name="maritalStatus" required>
+          <select class="form-select custom-input" [(ngModel)]="formData.maritalStatus" name="maritalStatus" #maritalStatus="ngModel" required>
             <option value="" disabled selected>Marital Status</option>
             <option value="single">Single</option>
             <option value="married">Married</option>
             <option value="divorced">Divorced</option>
             <option value="widowed">Widowed</option>
           </select>
-        </div>
-        <div class="mb-3">
-          <select class="form-select custom-input" [(ngModel)]="formData.religion" name="religion" required>
-            <option value="" disabled selected>Religion</option>
-            <option value="hindu">Hindu</option>
-            <option value="muslim">Muslim</option>
-            <option value="christian">Christian</option>
-            <option value="sikh">Sikh</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <select class="form-select custom-input" [(ngModel)]="formData.caste" name="caste" required>
-            <option value="" disabled selected>Caste</option>
-            <option value="general">General</option>
-            <option value="obc">OBC</option>
-            <option value="sc">SC</option>
-            <option value="st">ST</option>
-            <option value="other">Other</option>
-          </select>
+          <div *ngIf="maritalStatus.invalid && maritalStatus.touched" class="text-danger small">Marital status is required.</div>
         </div>
         <div class="d-flex justify-content-between">
           <button type="button" class="btn btn-secondary" (click)="step = 1">Back</button>
-          <button type="button" class="btn btn-danger" (click)="nextStep()">Continue</button>
+          <button type="button" class="btn btn-primary" (click)="nextStep(signupForm)">Continue</button>
         </div>
       </div>
-
-
-      <!-- STEP 3 -->
+    
+      <!-- STEP 3: Physical and Lifestyle Details -->
       <div *ngIf="step === 3">
         <h6 class="fw-bold">Physical Appearance</h6>
         <div class="mb-3 d-flex">
-          <input type="text" class="form-control me-2 custom-input" placeholder="Height (e.g., 5ft 6in)"
-            [(ngModel)]="formData.height" name="height" required />
-          <input type="text" class="form-control custom-input" placeholder="Weight (e.g., 55kg)"
-            [(ngModel)]="formData.weight" name="weight" required />
+          <select class="form-select me-2 custom-input" [(ngModel)]="formData.height" name="height" #height="ngModel" required>
+            <option value="" disabled selected>Select Height</option>
+            <option *ngFor="let h of heightOptions" [value]="h">{{ h }}</option>
+          </select>
+          <select class="form-select custom-input" [(ngModel)]="formData.weight" name="weight" #weight="ngModel" required>
+            <option value="" disabled selected>Select Weight</option>
+            <option *ngFor="let w of weightOptions" [value]="w">{{ w }}</option>
+          </select>
         </div>
+        <div *ngIf="(height.invalid && height.touched) || (weight.invalid && weight.touched)" class="text-danger small">
+          Height and Weight are required.
+        </div>
+        
         <div class="mb-3 d-flex">
-          <input type="text" class="form-control me-2 custom-input" placeholder="Body Type (e.g., Slim)"
-            [(ngModel)]="formData.bodyType" name="bodyType" required />
-          <input type="text" class="form-control custom-input" placeholder="Complexion (e.g., Fair)"
-            [(ngModel)]="formData.complexion" name="complexion" required />
+          <select class="form-select me-2 custom-input" [(ngModel)]="formData.bodyType" name="bodyType" #bodyType="ngModel">
+            <option value="" disabled selected>Select Body Type</option>
+            <option *ngFor="let type of bodyTypeOptions" [value]="type">{{ type }}</option>
+          </select>
+          <select class="form-select custom-input" [(ngModel)]="formData.complexion" name="complexion" #complexion="ngModel">
+            <option value="" disabled selected>Select Complexion</option>
+            <option *ngFor="let color of complexionOptions" [value]="color">{{ color }}</option>
+          </select>
         </div>
-
+    
         <h6 class="fw-bold mt-4">Religious Information</h6>
         <div class="mb-3">
-          <input type="text" class="form-control custom-input" placeholder="Caste (e.g., Sengunthar)"
-            [(ngModel)]="formData.caste" name="caste" required />
-        </div>
+          <select class="form-select custom-input" [(ngModel)]="formData.religion" name="religion" #religion="ngModel" required>
+            <option value="" disabled selected>Select religion</option>
+            <option *ngFor="let religion of religionOptions" [value]="religion">{{ religion }}</option>
+          </select>
+          <div *ngIf="religion.invalid && religion.touched" class="text-danger small">Religion is required.</div>
+        </div>       
 
+        <div class="mb-3">
+          <select class="form-select custom-input" [(ngModel)]="formData.caste" name="caste" #caste="ngModel" required>
+            <option value="" disabled selected>Select Caste</option>
+            <option *ngFor="let casteName of casteOptions" [value]="casteName">{{ casteName }}</option>
+          </select>
+          <div *ngIf="caste.invalid && caste.touched" class="text-danger small">Caste is required.</div>
+        </div>
+            
         <h6 class="fw-bold mt-4">Gothram and Star Details</h6>
         <div class="mb-3">
-          <input type="text" class="form-control mb-2 custom-input" placeholder="Gothram (e.g., Shiva)"
-            [(ngModel)]="formData.gothram" name="gothram" required />
-          <input type="text" class="form-control mb-2 custom-input" placeholder="Sign (e.g., Sengunthar)"
-            [(ngModel)]="formData.sign" name="sign" required />
-          <input type="text" class="form-control custom-input" placeholder="Star (e.g., Chithirai)"
-            [(ngModel)]="formData.star" name="star" required />
+          <input type="text" class="form-control mb-2 custom-input" placeholder="Gothram"
+            [(ngModel)]="formData.gothram" name="gothram" #gothram="ngModel" />
+            <select class="form-select mb-2 custom-input" [(ngModel)]="formData.sign" name="sign" #sign="ngModel">
+              <option value="" disabled selected>Select Zodiac Sign</option>
+              <option *ngFor="let signName of zodiacSignOptions" [value]="signName">{{ signName }}</option>
+            </select>
+          
+            <select class="form-select custom-input" [(ngModel)]="formData.star" name="star" #star="ngModel">
+              <option value="" disabled selected>Select Star</option>
+              <option *ngFor="let starName of starOptions" [value]="starName">{{ starName }}</option>
+            </select>
         </div>
-
+    
         <h6 class="fw-bold mt-4">Lifestyle</h6>
         <div class="mb-3 d-flex">
-          <select class="form-select me-2 custom-input" [(ngModel)]="formData.smoking" name="smoking" required>
+          <select class="form-select me-2 custom-input" [(ngModel)]="formData.smoking" name="smoking" #smoking="ngModel" required>
             <option value="" disabled selected>Smoking</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
-          <select class="form-select me-2 custom-input" [(ngModel)]="formData.drinking" name="drinking" required>
+          <select class="form-select me-2 custom-input" [(ngModel)]="formData.drinking" name="drinking" #drinking="ngModel" required>
             <option value="" disabled selected>Drinking</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
-          <select class="form-select custom-input" [(ngModel)]="formData.diet" name="diet" required>
+          <select class="form-select custom-input" [(ngModel)]="formData.diet" name="diet" #diet="ngModel" required>
             <option value="" disabled selected>Diet</option>
             <option value="Veg">Veg</option>
             <option value="Non-Veg">Non-Veg</option>
             <option value="Eggetarian">Eggetarian</option>
           </select>
         </div>
-
+        <div *ngIf="smoking.invalid && smoking.touched || drinking.invalid && drinking.touched || diet.invalid && diet.touched" class="text-danger small">
+          Lifestyle preferences are required.
+        </div>
+    
         <div class="d-flex justify-content-between">
           <button type="button" class="btn btn-secondary" (click)="step = 2">Back</button>
+          <button type="button" class="btn btn-primary" (click)="nextStep(signupForm)">Continue</button>
+        </div>
+      </div>
+    
+      <!-- STEP 4: Education & Profession -->
+      <div *ngIf="step === 4">
+        <h6 class="fw-bold">Education & Profession</h6>
+        <div class="mb-3">
+          <select class="form-select custom-input" [(ngModel)]="formData.education" name="education" #education="ngModel" required>
+            <option value="" disabled selected>Select Education</option>
+            <option *ngFor="let edu of educationOptions" [value]="edu">{{ edu }}</option>
+          </select>
+          <div *ngIf="education.invalid && education.touched" class="text-danger small">Education is required.</div>
+        </div>
+        
+        <div class="mb-3">
+          <select class="form-select custom-input" [(ngModel)]="formData.profession" name="profession" #profession="ngModel" required>
+            <option value="" disabled selected>Select Profession</option>
+            <option *ngFor="let prof of professionOptions" [value]="prof">{{ prof }}</option>
+          </select>
+          <div *ngIf="profession.invalid && profession.touched" class="text-danger small">Profession is required.</div>
+        </div>
+        
+        <div class="mb-3">
+          <select class="form-select custom-input" [(ngModel)]="formData.location" name="location" #location="ngModel" required>
+            <option value="" disabled selected>Select Location</option>
+            <option *ngFor="let loc of locationOptions" [value]="loc">{{ loc }}</option>
+          </select>
+          <div *ngIf="location.invalid && location.touched" class="text-danger small">Location is required.</div>
+        </div>
+        
+    
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" (click)="step = 3">Back</button>
+          <button type="button" class="btn btn-primary" (click)="nextStep(signupForm)">Continue</button>
+        </div>
+      </div>
+    
+      <!-- STEP 5: Additional Details -->
+      <div *ngIf="step === 5">
+        <h6 class="fw-bold">Family Details</h6>
+        <div class="mb-3" *ngIf="formData.maritalStatus === 'married'">
+          <select class="form-select custom-input" [(ngModel)]="formData.haveChildren" name="haveChildren" #haveChildren="ngModel" required>
+            <option value="" disabled selected>Do you have children?</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+          <div *ngIf="haveChildren.invalid && haveChildren.touched" class="text-danger small">This field is required.</div>
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control custom-input" placeholder="About Me" [(ngModel)]="formData.aboutMe"
+            name="aboutMe" #aboutMe="ngModel" rows="4" required></textarea>
+          <div *ngIf="aboutMe.invalid && aboutMe.touched" class="text-danger small">About Me is required.</div>
+        </div>
+        <div class="mb-3">
+          <input type="url" class="form-control custom-input" placeholder="Profile Image URL"
+            [(ngModel)]="formData.profileImageUrl" name="profileImageUrl" />
+        </div>
+    
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" (click)="step = 4">Back</button>
           <button type="submit" class="btn btn-success" [disabled]="!signupForm.valid">Submit</button>
         </div>
       </div>
-
-
     </form>
+  </div>
+</div>
+
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center px-4 pt-5 pb-4 position-relative">
+      <!-- Green circle icon -->
+      <div class="position-absolute top-0 start-50 translate-middle" style="transform: translate(-50%, -50%) !important;">
+        <div class="rounded-circle bg-success d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+          <i class="bi bi-check-lg text-white fs-3"></i>
+        </div>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <h5 class="fw-bold mt-2">Success</h5>
+        <p>Profile successfully created. Let the search for your life partner begin!</p>
+        <button type="button" class="btn btn-success w-100 mt-3 rounded-pill" data-bs-dismiss="modal" routerLink="/">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center px-4 pt-5 pb-4 position-relative">
+      <!-- Red circle with X icon -->
+      <div class="position-absolute top-0 start-50 translate-middle" style="transform: translate(-50%, -50%) !important;">
+        <div class="rounded-circle bg-danger d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+          <i class="bi bi-x-lg text-white fs-3"></i>
+        </div>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <h5 class="fw-bold mt-2 text-danger">Failed</h5>
+        <p>Something went wrong. Please try again later!</p>
+        <button type="button" class="btn btn-danger w-100 mt-3 rounded-pill" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
   </div>
 </div>

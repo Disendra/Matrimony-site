@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import { Route, Router } from '@angular/router';
 
@@ -7,17 +7,26 @@ import { Route, Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
-  sidebarOpen: boolean = false; // Declaration
+export class HeaderComponent implements OnInit {
+  sidebarOpen: boolean = false;
+  isLogin: boolean = false;
 
-  constructor(private common : CommonService, private router : Router) { }
+  constructor(private common: CommonService, private router: Router) { }
+
+  ngOnInit(): void {
+    let mobileNumber = localStorage.getItem('mobileNumber') || '';
+    let token = localStorage.getItem('token') || '';
+    if (mobileNumber && token) {
+      this.isLogin = true;
+    }
+  }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
   navigateTo(route: string) {
-  this.router.navigateByUrl('/' + route)
+    this.router.navigateByUrl('/' + route)
     this.sidebarOpen = false;
   }
 
@@ -29,6 +38,9 @@ export class HeaderComponent {
 
   logout() {
     console.log('Logging out');
+    localStorage.clear();
+    sessionStorage.clear();
     this.sidebarOpen = false;
+    window.location.reload()
   }
 }

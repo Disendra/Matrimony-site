@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { CommonService } from '../../services/common.service';
+import { HttpClient } from '@angular/common/http';
+import { getProfiles, sendInterest } from '../../constants/api';
+import { casteOptions } from '../create-account/dropdown';
 
 export const Section = {
-  isList : "isList",
-  isInfo : "isInfo"
+  isList: "isList",
+  isInfo: "isInfo"
 }
 
 
@@ -12,84 +15,103 @@ export const Section = {
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.css'
 })
-export class ListPageComponent implements OnInit{
+export class ListPageComponent implements OnInit {
+  @ViewChild('closeSearchForm') closeSearchForm!: ElementRef;
   currentSection = Section.isList;
   interestSent: { [key: string]: boolean } = {};
+  profileList: any;
+  selectedProfile: any;
+  casteOptions = casteOptions
+  errorMessage = '';
+  searchForm = {
+    gender: '',
+    ageFrom: '',
+    ageTo: '',
+    religion: '',
+    caste: '',
+    country: '',
+    maritalStatus: ''
+  };
+
+  constructor(private common: CommonService, private http: HttpClient) { }
 
 
- constructor(private common : CommonService) { }
+  ngOnInit(): void {
+    this.common.listPage$.subscribe((shouldTrigger) => {
+      if (shouldTrigger) {
+        console.log('Trigger received!');
+        this.currentSection = Section.isList;
+      }
+    });
+    this.getProfiles('onload')
+  }
 
+  getProfiles(type?: any) {
+    const {
+      gender,
+      ageFrom,
+      ageTo,
+      religion,
+      caste,
+      country,
+      maritalStatus
+    } = this.searchForm;
 
- ngOnInit(): void {
-  this.common.listPage$.subscribe((shouldTrigger) => {
-    if (shouldTrigger) {
-      console.log('Trigger received!');
-      this.currentSection = Section.isList;
+    if (type != 'onload') {
+      const isEmpty = !gender && !ageFrom && !ageTo && !religion && !caste && !country && !maritalStatus;
+      if (isEmpty) {
+        this.errorMessage = 'At least one value is required to search.';
+        return;
+      }
+      if (ageFrom && ageTo && +ageFrom > +ageTo) {
+        this.errorMessage = 'To Age must be greater than or equal to From Age.';
+        return;
+      }
     }
-  });
-}
 
+    this.errorMessage = '';
+    this.http.post(getProfiles, this.searchForm).subscribe({
+      next: (res: any) => {
+        this.profileList = res.data;
+        this.closeSearchForm.nativeElement.click();
+      },
+      error: (err) => {
+        console.error('Search error:', err);
+      }
+    });
+  }
 
-
-  profiles = [
-    {
-      id: 'TM3001',
-      name: 'Ritu Tiwari',
-      age: 24,
-      height: '5\'7" (170 CM)',
-      education: 'Undergraduate',
-      religion: 'HINDU - Saraswathar',
-      profession: 'Software Engineer',
-      company: 'Bank Employee',
-      location: 'Chennai, Tamil Nadu, India',
-      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?fit=crop&w=400&q=80'
-    },
-    {
-      id: 'TM3011',
-      name: 'Divanka Sharma',
-      age: 26,
-      height: '5\'10" CM',
-      education: "Master's Degree",
-      religion: 'HINDU',
-      profession: 'Bank Employee',
-      company: 'SBI',
-      location: 'Chennai, Tamil Nadu, India',
-      image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?fit=crop&w=400&q=80'
-    },
-    {
-      id: 'TM3023',
-      name: 'Jyoti Verma',
-      age: 25,
-      height: '5\'5"',
-      education: 'Undergraduate',
-      religion: 'HINDU - Saraswathar',
-      profession: 'Software Engineer',
-      company: 'TCS',
-      location: 'Chennai, Tamil Nadu, India',
-      image: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?fit=crop&w=400&q=80'
-    },
-    {
-      id: 'TM3045',
-      name: 'Khushi Singh',
-      age: 25,
-      height: '5\'6"',
-      education: 'Undergraduate',
-      religion: 'HINDU',
-      profession: 'Teacher',
-      company: 'DPS School',
-      location: 'Chennai, Tamil Nadu, India',
-      image: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?fit=crop&w=400&q=80'
-    }
-  ];
-  
+  resetFilters() {
+    this.searchForm = {
+      gender: '',
+      ageFrom: '',
+      ageTo: '',
+      religion: '',
+      caste: '',
+      country: '',
+      maritalStatus: ''
+    };
+    this.errorMessage = '';
+  }
 
   sendInterest(profile: any) {
-    debugger;
-    this.interestSent[profile.id] = true;
+    const senderId = localStorage.getItem('userId');
+    const receiverId = profile.id;
+
+    this.http.post(sendInterest, { senderId, receiverId }).subscribe({
+      next: () => {
+        this.interestSent[profile.id] = true;
+      },
+      error: (err) => {
+        console.error('Failed to send interest:', err);
+      }
+    });
   }
+
 
   viewProfile(profile: any) {
     this.currentSection = Section.isInfo;
+    this.selectedProfile = profile;
   }
 
   onCandiateSelction() {

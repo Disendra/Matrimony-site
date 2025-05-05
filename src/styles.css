@@ -1,54 +1,61 @@
 @font-face {
-    font-family: 'Inter 28pt';
-    src: url('assets/fonts/Inter28pt-Bold.woff2') format('woff2'), url('assets/fonts/Inter28pt-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Inter 28pt';
-    src: url('assets/fonts/Inter28pt-Medium.woff2') format('woff2'), url('assets/fonts/Inter28pt-Medium.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Inter 28pt';
-    src: url('assets/fonts/Inter28pt-Regular.woff2') format('woff2'), url('assets/fonts/Inter28pt-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Inter 28pt';
-    src: url('assets/fonts/Inter28pt-SemiBold.woff2') format('woff2'), url('assets/fonts/Inter28pt-SemiBold.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  :root {
-    --primary-color-blue: #062456;
-    --primary-color-green: #A3CD5C;
-    --primary-color-orange: #F16156;
-    --primary-dim-black: #202020;
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    background-color: #ffffff;
-    font-family: 'Inter 28pt';
-  
-  }
+  font-family: 'Inter 28pt';
+  src: url('assets/fonts/Inter28pt-Bold.woff2') format('woff2'), url('assets/fonts/Inter28pt-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter 28pt';
+  src: url('assets/fonts/Inter28pt-Medium.woff2') format('woff2'), url('assets/fonts/Inter28pt-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter 28pt';
+  src: url('assets/fonts/Inter28pt-Regular.woff2') format('woff2'), url('assets/fonts/Inter28pt-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter 28pt';
+  src: url('assets/fonts/Inter28pt-SemiBold.woff2') format('woff2'), url('assets/fonts/Inter28pt-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --primary-color-blue: #062456;
+  --primary-color-green: #A3CD5C;
+  --primary-color-orange: #F16156;
+  --primary-dim-black: #202020;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  font-family: 'Inter 28pt';
+
+}
 
 .cursor-pointer {
-    cursor: pointer; 
-}/* You can add global styles to this file, and also import other style files */
+  cursor: pointer;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+.no-records {
+  max-width: 250px !important;
+  margin-top: 75px;
+}

@@ -18,6 +18,14 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./components/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule)
   },
+  {
+    path: 'proposals-received',
+    loadChildren: () => import('./components/profile-intrests/profile-intrests.module').then((m) => m.ProfileIntrestsModule)
+  },
+  {
+    path: 'proposals-sent',
+    loadChildren: () => import('./components/profile-intrests/profile-intrests.module').then((m) => m.ProfileIntrestsModule)
+  },
 ];
 
 @NgModule({

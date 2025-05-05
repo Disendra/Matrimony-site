@@ -6,14 +6,22 @@ import { Component } from '@angular/core';
   styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent {
-  mobileNumber: string = '';
+  showOtp = false;
+  mobileNumber = '';
+  otp1 = '';
+  otp2 = '';
+  otp3 = '';
+  otp4 = '';
 
   onSubmit() {
-    if (this.mobileNumber) {
-      console.log('Reset password for mobile number:', this.mobileNumber);
-      // Add your reset password logic here (e.g., API call)
-    } else {
-      console.log('Please enter a mobile number');
-    }
+    // Ideally send OTP to the user here via backend
+    this.showOtp = true;
+  }
+
+  verifyOtp() {
+    const otp = this.otp1 + this.otp2 + this.otp3 + this.otp4;
+    console.log('Entered OTP:', otp);
+
+    // Add verification logic here
   }
 }
